@@ -1,0 +1,28 @@
+package eu.solven.pepper.toto;
+
+import static com.google.common.base.Strings.lenientFormat;
+import junit.extensions.TestSetup;
+
+import java.net.MalformedURLException;
+import com.google.common.base.Charsets;
+
+import org.junit.Test;
+
+import com.google.common.base.Strings;
+
+import ch.qos.logback.classic.joran.action.LoggerAction;
+import static org.junit.Assert.assertEquals;
+
+public class TestVirtualMachineWithoutToolsJar {
+	@Test
+	public void testFindVirtualMachineClass() throws ClassNotFoundException, MalformedURLException {
+		Charsets.US_ASCII.toString();
+		Strings.isNullOrEmpty("");
+		lenientFormat("");
+
+		assertEquals("titi", "toto");
+
+		new TestSetup(null);
+		new LoggerAction();
+	}
+}

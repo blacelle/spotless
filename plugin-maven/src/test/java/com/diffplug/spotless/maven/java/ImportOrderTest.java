@@ -33,10 +33,30 @@ class ImportOrderTest extends MavenIntegrationHarness {
 	@Test
 	void order() throws Exception {
 		writePomWithJavaSteps(
-				"<importOrder>",
-				"  <order>java,javax,org,\\#com</order>",
-				"</importOrder>");
+			"<importOrder>",
+			"  <order>java,javax,org,\\#com</order>",
+			"</importOrder>");
 		runTest();
+	}
+
+	@Test
+	void order_standardEclipse() throws Exception {
+		// As of Eclipse 4.25, exporting default importOrders gives a File holding:
+		// 0=java
+		// 1=javax
+		// 2=org
+		// 3=com
+		// However, it does not express the static imports being pushed by default at the beginning
+
+		writePomWithJavaSteps(
+			"<importOrder>",
+			"  <order>java,javax,org,com</order>",
+			"</importOrder>");
+
+		String path = "src/main/java/test.java";
+		setFile(path).toResource("java/importsorter/JavaCodeUnsortedImportsEclipse.test");
+		mavenRunner().withArguments("spotless:apply").runNoError();
+		assertFile(path).sameAsResource("java/importsorter/JavaCodeSortedImportsEclipse.test");
 	}
 
 	@Test
